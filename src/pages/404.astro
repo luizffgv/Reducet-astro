@@ -1,0 +1,28 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Not found" description="Page not found">
+  <div class="container">
+    <h1>404</h1>
+    <div class="not-found-message">Page not found</div>
+    <a href="/">Return to home</a>
+  </div>
+</BaseLayout>
+
+<style>
+  .container {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    translate: -50% -50%;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    .not-found-message {
+      opacity: 0.5;
+    }
+  }
+</style>

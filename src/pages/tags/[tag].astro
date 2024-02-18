@@ -1,0 +1,33 @@
+---
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PostList from "@components/PostList.astro";
+import Title from "@components/Title.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  posts: CollectionEntry<"posts">[];
+}
+
+export const getStaticPaths = (async () => {
+  const allPosts = await getCollection("posts");
+
+  const tags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
+
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      posts: allPosts.filter((post) => post.data.tags.includes(tag)),
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout title=`${tag} posts` description=`Read posts marked with ${tag}.`>
+  <Title>Posts tagged with {tag}</Title>
+  <PostList posts={posts} />
+</BaseLayout>

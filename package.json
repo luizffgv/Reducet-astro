@@ -1,0 +1,19 @@
+{
+  "name": "reducet",
+  "dependencies": {
+    "@astrojs/check": "^0.5.4",
+    "@fontsource-variable/material-symbols-rounded": "^5.0.23",
+    "@fontsource/atkinson-hyperlegible": "^5.0.18",
+    "astro": "^4.4.0",
+    "typescript": "^5.3.3"
+  },
+  "private": true,
+  "scripts": {
+    "astro": "astro",
+    "build": "astro check && astro build",
+    "dev": "astro dev",
+    "preview": "astro preview",
+    "start": "astro dev"
+  },
+  "type": "module"
+}

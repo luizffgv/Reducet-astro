@@ -1,0 +1,154 @@
+---
+import "@fontsource/atkinson-hyperlegible";
+import Navbar from "@components/Navbar.astro";
+import { ViewTransitions } from "astro:transitions";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <script is:inline>
+      function setDarkMode(document_) {
+        const storedDark = localStorage.getItem("dark-mode");
+        const deviceIsDark = matchMedia("(prefers-color-scheme: dark)").matches;
+        if (storedDark === "true" || (storedDark == undefined && deviceIsDark))
+          document_.documentElement.classList.add("dark");
+      }
+
+      setDarkMode(document);
+
+      document.addEventListener("astro:before-swap", ({ newDocument }) => {
+        setDarkMode(newDocument);
+      });
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <ViewTransitions />
+  </head>
+  <body>
+    <Navbar />
+    <main>
+      <slot />
+    </main>
+    <style>
+      :root {
+        color-scheme: light;
+
+        --color-bg: #f8f8f8;
+        --color-bg-close: #ffffff;
+        --color-fg: #2b2b2b;
+        --color-anchor-fg: #2d9bf0;
+        --color-anchor-visited-fg: #742df0;
+        --color-shadow: rgb(0 0 0 / 0.1);
+        /* Color for nth-even elements, like list items and table rows. */
+        --color-even: rgb(0 0 0 / 0.05);
+
+        --shadow-1: 0 2px 4px var(--color-shadow);
+
+        --font-normal: "Atkinson Hyperlegible", sans-serif;
+
+        /* Default border radius for most elements */
+        --border-radius: 8px;
+
+        &.dark {
+          color-scheme: dark;
+
+          --color-bg: #1a171c;
+          --color-bg-close: #26232b;
+          --color-fg: #f4f4f4;
+          --color-anchor-fg: #2d9bf0;
+          --color-anchor-visited-fg: #742df0;
+          --color-shadow: rgb(0 0 0 / 0.25);
+          --color-even: rgb(0 0 0 / 0.15);
+        }
+      }
+
+      body {
+        background-color: var(--color-bg);
+        color: var(--color-fg);
+        font-family: var(--font-normal);
+        line-height: 1.4;
+        min-height: 100dvh;
+
+        transition: 250ms ease;
+        transition-property: background-color, color;
+
+        /* Interpolates font-size from 14px to 18px
+         * based on the following steps:
+         * 14px at 280px viewport width
+         * 18px at 768px viewport width
+         * Generated with vbs.luizf.dev
+         */
+        font-size: clamp(14px, 11.7px + 0.82vw, 18px);
+      }
+
+      main {
+        box-sizing: border-box;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 16px 25dvh 16px;
+
+        /* Interpolates width from 0px to 1080px
+         * based on the following steps:
+         * 0px at 0px viewport width
+         * 280px at 280px viewport width
+         * 1080px at 1620px viewport width
+         * Generated with vbs.luizf.dev
+         */
+        width: max(0px, 0px + 100vw);
+        @media screen and (min-width: 280px) {
+          width: min(1080px, 112.84px + 59.7vw);
+        }
+      }
+    </style>
+    <style is:global>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      a {
+        color: var(--color-anchor-fg);
+
+        &:visited {
+          color: var(--color-anchor-visited-fg);
+        }
+      }
+
+      button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-bottom: 0.25em;
+        margin-top: 0.75em;
+      }
+
+      p {
+        margin-bottom: 1.5em;
+        margin-top: 0.5em;
+      }
+    </style>
+  </body>
+</html>

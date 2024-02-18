@@ -1,0 +1,23 @@
+---
+interface Props {
+  /** Name of the tag. */
+  name: string;
+}
+
+const { name } = Astro.props;
+---
+
+<a class="tag-button" href={`/tags/${name}`}>{name}</a>
+<style>
+  .tag-button {
+    background-color: var(--color-bg-close);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-1);
+    display: inline-block;
+    padding: 0.5em 1em;
+
+    /* Reset <a> styles */
+    color: inherit;
+    text-decoration: none;
+  }
+</style>

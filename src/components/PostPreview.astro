@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+---
+
+<a class="post-preview" href={`/posts/${post.slug}`}>
+  <div class="post-preview__title" transition:name={`post-title-${post.slug}`}>
+    {post.data.title}
+  </div>
+  <ul class="post-preview__tags">
+    {post.data.tags.sort().map((tag) => <li>{tag}</li>)}
+  </ul>
+  <div class="post-preview__date">
+    {new Date(post.data.date).toLocaleDateString()}
+  </div>
+</a>
+<style>
+  .post-preview {
+    background-color: var(--color-bg-close);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-1);
+    padding: 0.5em 1em;
+
+    transition: 250ms ease;
+    transition-property: background-color, color;
+
+    /* Override <a> styles */
+    color: inherit;
+    display: block;
+    text-decoration: none;
+
+    .post-preview__title {
+      font-size: 1.25em;
+    }
+
+    .post-preview__tags {
+      list-style: none;
+      margin-bottom: 1em;
+      opacity: 0.5;
+      text-transform: uppercase;
+
+      & li {
+        display: inline;
+
+        &:not(:last-child)::after {
+          content: ", ";
+        }
+      }
+    }
+  }
+</style>

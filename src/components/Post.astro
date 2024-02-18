@@ -1,0 +1,98 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import type { CollectionEntry } from "astro:content";
+import Title from "@components/Title.astro";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BaseLayout title={post.data.title} description="Read this post here.">
+  <div id="post-content">
+    <Title transition:name=`post-title-${post.slug}` style="width: fit-content">
+      {post.data.title}
+    </Title>
+    <Content />
+  </div>
+  <style is:global>
+    #post-content {
+      & code:not(pre code) {
+        background-color: var(--color-bg-close);
+        border-radius: calc(var(--border-radius) / 2);
+        box-shadow: var(--shadow-1);
+        padding-left: 0.25em;
+        padding-right: 0.25em;
+      }
+
+      & pre:has(code) {
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-1);
+        margin-bottom: 1.75em;
+        margin-top: 1.75em;
+        max-width: fit-content;
+        padding: 0.75em;
+      }
+
+      & table {
+        background-color: var(--color-bg-close);
+        border-collapse: collapse;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-1);
+        display: block;
+        margin-bottom: 1.75em;
+        margin-top: 1.75em;
+        max-width: fit-content;
+        overflow-x: auto;
+
+        & td {
+          padding: 0.25em 1ch;
+        }
+
+        & th {
+          border-bottom: 1px solid rgb(0 0 0 / 0.15);
+          font-weight: bold;
+          padding: 0.5em 1ch;
+        }
+
+        & tr:nth-child(even) {
+          background-color: var(--color-even);
+        }
+      }
+
+      & ul {
+        background-color: var(--color-bg-close);
+        border-radius: var(--border-radius);
+        list-style: none;
+        overflow-x: auto;
+        width: fit-content;
+
+        &:not(ul > li > &) {
+          box-shadow: var(--shadow-1);
+          margin-bottom: 1.75em;
+          margin-top: 1.75em;
+
+          > li:nth-child(even) {
+            background-color: var(--color-even);
+          }
+        }
+
+        & li {
+          padding: 0.5em;
+
+          :is(p:not(:first-child), pre:has(code), table) {
+            margin-left: 8px;
+          }
+
+          & p {
+            margin-top: 0;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  </style>
+</BaseLayout>

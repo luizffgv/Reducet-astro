@@ -1,0 +1,33 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import TagButton from "@components/TagButton.astro";
+import Title from "@components/Title.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("posts");
+
+const tagsWithDuplicates = posts.flatMap((post) => post.data.tags);
+
+const tags = [...new Set(tagsWithDuplicates)].sort();
+---
+
+<BaseLayout title="Tags" description="Browse post tags.">
+  <Title>Tags</Title>
+  <ul class="tags-list">
+    {
+      tags.map((tag) => (
+        <li>
+          <TagButton name={tag} />
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
+<style>
+  .tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    list-style: none;
+  }
+</style>
