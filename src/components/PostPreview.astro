@@ -15,6 +15,9 @@ const { post } = Astro.props;
   <ul class="post-preview__tags">
     {post.data.tags.sort().map((tag) => <li>{tag}</li>)}
   </ul>
+  <div class="post-preview__summary">
+    {post.data.summary}
+  </div>
   <div class="post-preview__date">
     {new Date(post.data.date).toLocaleDateString()}
   </div>
@@ -40,7 +43,6 @@ const { post } = Astro.props;
 
     .post-preview__tags {
       list-style: none;
-      margin-bottom: 1em;
       opacity: 0.5;
       text-transform: uppercase;
 
@@ -51,6 +53,10 @@ const { post } = Astro.props;
           content: ", ";
         }
       }
+    }
+
+    .post-preview__summary {
+      margin-bottom: 1em;
     }
   }
 </style>

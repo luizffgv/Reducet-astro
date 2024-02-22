@@ -1,5 +1,8 @@
 ---
 title: "& selector in CSS vs. Sass"
+summary:
+  Here we look into a subtle but important difference between CSS and Sass in
+  regards to the & selector.
 date: 2023-11-12
 tags: [CSS, Sass]
 ---

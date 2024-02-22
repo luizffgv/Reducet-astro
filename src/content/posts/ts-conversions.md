@@ -1,5 +1,9 @@
 ---
 title: Conversions in TypeScript with ts-conversions
+summary:
+  Here we take a look at the @luizffgv/ts-conversions NPM package, which
+  provides simple functions that make working with TypeScript a quicker and more
+  comfortable experience.
 date: 2023-11-11
 tags: ["TypeScript"]
 ---

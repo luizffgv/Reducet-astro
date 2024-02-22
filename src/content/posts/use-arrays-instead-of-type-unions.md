@@ -1,5 +1,8 @@
 ---
 title: Use arrays instead of type unions
+summary:
+  In TypeScript, inferring type unions from arrays can be better than defining
+  them directly.
 date: 2023-11-11
 tags: [TypeScript]
 ---
